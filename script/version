@@ -1,0 +1,11 @@
+#!/usr/bin/env escript
+%% -*- erlang -*-
+%%! -pa ebin
+
+main(_) ->
+    ok = application:load(mecab),
+    version(application:loaded_applications()).
+
+version([{mecab, _, Version}|_]) -> io:format("mecab: ~s~n", [Version]);
+version([_|Applications])        -> version(Applications);
+version([])                      -> io:format("unknown version").

@@ -1,0 +1,15 @@
+#!/usr/bin/env escript
+%% -*- erlang -*-
+
+main(_) ->
+    p([code:root_dir(),
+       code:lib_dir(),
+       code:lib_dir(erl_interface),
+       erlang:system_info(system_architecture)]).
+
+p([H|T]) ->
+    io:format("~s~n", [H]),
+    p(T);
+
+p([]) ->
+    ok.
