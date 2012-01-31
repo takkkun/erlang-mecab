@@ -34,10 +34,10 @@ ERLC = 'erlc'
 ERLC_FLAGS = '-W'
 
 CC = 'gcc'
-CC_FLAGS = '-Wall -02'
+CC_FLAGS = '-Wall -O3'
 SO_FLAGS = `uname`.chomp == 'Darwin' ?
            '-fno-common -bundle -undefined suppress -flat_namespace' :
-           '-dynamiclib'
+           '-shared -fPIC'
 
 ERL_INCLUDE = "-I#{ERL_DIR}/include"
 ERL_LIBS = "-L#{ERL_DIR}/lib -lerts"
@@ -69,7 +69,7 @@ file DRIVER_OBJ => 'src/mecab_drv.c' do |t|
      "#{ERL_INCLUDE} #{ERL_LIBS} " +
      "#{EI_INCLUDE} #{EI_LIBS} " +
      "#{MECAB_INCLUDE} #{MECAB_LIBS} " +
-     "-o #{t} #{t.prerequisites}"
+     "-o #{t} #{t.prerequisites.join ' '}"
 end
 
 def install_dir
